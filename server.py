@@ -3,6 +3,9 @@ from PIL import Image
 from bottle import route, request, run
 from boto.s3.key import Key
 from common import bucket, queue
+import uuid
+import json
+from boto.sqs.message import Message
 
 # All the sizes our app supports
 sizes = { 
@@ -13,13 +16,25 @@ sizes = {
 
 # Generate a unique id to be used in an S3 bucket.
 def generate_id():
-	raise Exception('Implement me!')
+	while 1:
+		id = str(uuid.uuid4())
+		if not bucket.get_key(id):
+			return id
 
 
 # Write a message to SQS containing enough information to 
 # create all the necessary thumbnails from a worker.
 def notify_worker(id, sizes):
-	raise Exception('Implement me!')	
+	jsonMessage = json.dumps(
+					{
+						'id': id,
+						'sizes': sizes
+					}
+				)
+	print jsonMessage #########################################################
+	message = Message()
+	message.set_body(jsonMessage)
+	queue.write(message)
 
 
 # Generate a URL for a resource in an S3 bucket

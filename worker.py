@@ -52,12 +52,16 @@ try:
 	
 	# Loop forever.
 	while 1:
-		
 		# Read a message from the queue containing the key of
 		# the image to be resized, use read() to read the image.
 		# For every size of image to generated, call thumbnail()
 		# to generate the image and then write() to store the
 		# generated thumbnail back into S3. Good luck, have fun.
+		messages = queue.get_messages();
+		if messages:
+			message = messages[0]
+			json.loads(message.get_body())
+			
 
 # When someone tries to break the program just quit gracefully
 # instead of raising some nasty exception.
