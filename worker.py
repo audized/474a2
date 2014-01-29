@@ -69,7 +69,7 @@ try:
 					thumbnail(originalImage, int(sizes[size]['width']), int(sizes[size]['height'])),
 					originalImage.format.lower()
 					)
-			
+			queue.delete_message(message)
 
 # When someone tries to break the program just quit gracefully
 # instead of raising some nasty exception.
