@@ -18,7 +18,7 @@ sizes = {
 def generate_id():
 	while 1:
 		id = str(uuid.uuid4())
-		if not bucket.get_key(id):
+		if not bucket.get_key(id + '-original'):
 			return id
 
 
