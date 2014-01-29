@@ -60,7 +60,15 @@ try:
 		messages = queue.get_messages();
 		if messages:
 			message = messages[0]
-			json.loads(message.get_body())
+			jsonMessage = json.loads(message.get_body())
+			uuid = jsonMessage['id']
+			originalImage = read(uuid + '-original')
+			sizes = jsonMessage['sizes']
+			for size in sizes.keys():
+				write(uuid + '-' + size,
+					thumbnail(originalImage, int(sizes[size]['width']), int(sizes[size]['height'])),
+					originalImage.format.lower()
+					)
 			
 
 # When someone tries to break the program just quit gracefully
