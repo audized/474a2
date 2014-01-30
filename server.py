@@ -31,7 +31,6 @@ def notify_worker(id, sizes):
 						'sizes': sizes
 					}
 				)
-	print jsonMessage #########################################################
 	message = Message()
 	message.set_body(jsonMessage)
 	queue.write(message)
@@ -84,6 +83,9 @@ def upload():
 
 	# Finally load the image data into S3.
 	key.set_contents_from_file(file)
+
+	# Make the image publicly available
+	key.set_canned_acl('public-read')
 
 	# Send a message to a worker to begin processing the resizing
 	# of the freshly minted image.

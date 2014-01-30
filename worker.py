@@ -46,6 +46,8 @@ def write(name, image, format):
 	image.save(buf, format=format, quality=8)
 	key.set_metadata('Content-Type', 'image/'+format.lower())
 	key.set_contents_from_string(buf.getvalue())
+	# Make the image publicly available
+	key.set_canned_acl('public-read')
 	buf.close()
 
 try:
