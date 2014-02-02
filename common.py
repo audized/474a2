@@ -50,7 +50,7 @@ def getKeys(file):
 			}
 
 
-keys = getKeys('credentials.csv')
+keys = getKeys('/home/ubuntu/assignment2/credentials.csv')
 region = 'us-west-2'
 queue_name = "testQueue"
 bucket_name = "test-bucket-for-terry"
