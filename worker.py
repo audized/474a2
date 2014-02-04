@@ -59,7 +59,7 @@ try:
 		# For every size of image to generated, call thumbnail()
 		# to generate the image and then write() to store the
 		# generated thumbnail back into S3. Good luck, have fun.
-		message = queue.read();
+		message = queue.read(wait_time_seconds=10);
 		if message:
 			jsonMessage = json.loads(message.get_body())
 			uuid = jsonMessage['id']
